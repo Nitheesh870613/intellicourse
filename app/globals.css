@@ -1,0 +1,215 @@
+@import "tailwindcss";
+
+:root {
+  /* New Premium Dark Theme */
+  --bg: #1C1E27;
+  --card: #2A2D39;
+  --sidebar: #14151C;
+  --border: rgba(255, 255, 255, 0.05);
+
+  /* Accent Colors */
+  --accent-purple: #9B6BFF;
+  --accent-pink: #FF6AC1;
+  --accent-orange: #FFA066;
+  --accent-blue: #6F85FF;
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.5);
+
+  /* Card styling */
+  --card-radius: 18px;
+  --card-shadow: 0 4px 40px rgba(0, 0, 0, 0.4);
+
+  /* Legacy tokens for compatibility */
+  --background: var(--bg);
+  --card-background: var(--card);
+  --foreground: var(--text-primary);
+  --primary: var(--accent-purple);
+  --secondary: var(--accent-pink);
+  --muted-foreground: var(--text-secondary);
+  --border-color: var(--border);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text-primary);
+  --color-primary: var(--accent-purple);
+  --color-card: var(--card);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Card utility class */
+.card {
+  background: var(--card);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border);
+}
+
+/* Text utilities */
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+/* Button accent */
+.btn-accent {
+  background: var(--accent-purple);
+  color: white;
+  border-radius: 12px;
+  padding: 0.6rem 1.25rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-accent:hover {
+  opacity: 0.9;
+}
+
+/* Smooth transitions */
+* {
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+/* Touch-friendly tap targets */
+button,
+a,
+[role="button"] {
+  min-height: 44px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent horizontal scroll */
+body,
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-purple);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b085ff;
+}
+
+/* ======================================
+   ROCKET ANIMATIONS
+   ====================================== */
+
+/* Floating idle animation - gentle bobbing */
+@keyframes rocket-float {
+  0% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+}
+
+.animate-rocket-float {
+  animation: rocket-float 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Takeoff launch animation */
+@keyframes rocket-launch {
+  0% {
+    transform: translateY(0) scale(1) rotate(-2deg);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateY(10px) scale(1.02) rotate(-5deg);
+    opacity: 1;
+  }
+
+  40% {
+    transform: translateY(-80px) scale(1.05) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-600px) scale(0.6) rotate(5deg);
+    opacity: 0;
+  }
+}
+
+.animate-rocket-launch {
+  animation: rocket-launch 1.1s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* Exhaust trail effect (optional) */
+.animate-rocket-launch::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  width: 40px;
+  height: 120px;
+  background: radial-gradient(ellipse at center, rgba(155, 107, 255, 0.4), rgba(255, 106, 193, 0.2), transparent);
+  filter: blur(15px);
+  transform: translateX(-50%);
+  pointer-events: none;
+  animation: exhaust-grow 1.1s ease-out forwards;
+}
+
+@keyframes exhaust-grow {
+  0% {
+    height: 20px;
+    opacity: 0;
+  }
+
+  30% {
+    height: 150px;
+    opacity: 1;
+  }
+
+  100% {
+    height: 300px;
+    opacity: 0;
+  }
+}
