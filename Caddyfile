@@ -1,0 +1,13 @@
+{
+    # Optional global options (uncomment to receive ACME certificate expiry notifications)
+    # email admin@YOUR_DOMAIN
+}
+
+YOUR_DOMAIN {
+    reverse_proxy web:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
