@@ -2,11 +2,12 @@
 
 <div align="center">
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)
-![TailwindCSS](https://img.shields.io/badge/Tailwind-3-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791?style=for-the-badge&logo=postgresql)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker)
+![AWS](https://img.shields.io/badge/AWS-EC2-FF9900?style=for-the-badge&logo=amazon-aws)
+![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=for-the-badge&logo=vercel)
 
 ### 📖 [Documentation](#features)
 
@@ -75,11 +76,19 @@ MindCourse is a full-stack AI-powered educational platform that revolutionizes c
 - **File Storage**: Local exports (JSON, Markdown)
 
 ### AI & Integrations
-- **AI Provider**: Groq AI (LLaMA 3.1)
+- **AI Provider**: Groq AI (LLaMA 3.1) & Google Gemini AI
 - **Authentication**: Clerk
 - **Video API**: YouTube Data API v3
 - **OCR**: Tesseract.js + PDF.js
 - **Charts**: Recharts
+
+### DevOps & Deployment
+- **Containerization**: Docker (multi-stage `node:20-alpine`, non-root user)
+- **Container Orchestration**: Docker Compose
+- **Cloud Infrastructure**: AWS EC2 (Ubuntu 24.04 LTS, `t3.micro`)
+- **Reverse Proxy & SSL**: Caddy v2 (automated Let's Encrypt HTTPS)
+- **Edge Deployment**: Vercel
+- **CI/CD Automation**: GitHub Actions (`deploy.yml`)
 
 ---
 
@@ -138,6 +147,30 @@ MindCourse is a full-stack AI-powered educational platform that revolutionizes c
    ```
 
    Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🐳 Docker & Cloud Deployment
+
+### Local Container Deployment (Docker Compose)
+Run the application in production mode inside isolated containers:
+
+```bash
+# 1. Create .env from template
+cp .env.example .env
+
+# 2. Build and start containers
+docker compose up --build
+```
+
+Access the app at [http://localhost:3000](http://localhost:3000).
+
+### AWS EC2 & Production Architecture
+The project includes production-ready configuration for AWS EC2:
+- **Dockerfile**: Optimized multi-stage build using `node:20-alpine`, non-root user (`nextjs`), and Next.js standalone tracing.
+- **Caddy Reverse Proxy**: Automatically issues and renews free SSL/TLS certificates via Let's Encrypt and proxies traffic to the app.
+- **GitHub Actions CI/CD**: Automatic deployment to EC2 via SSH on push to `main` with secret validation.
+- **Setup Guide**: Comprehensive step-by-step walkthrough covering EC2 `t3.micro` provisioning, swap configuration, security groups, and DNS is available in **[`deploy/aws-ec2-setup.md`](deploy/aws-ec2-setup.md)**.
 
 ---
 

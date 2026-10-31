@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -13,7 +14,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Check Deployment Secrets
+        id: check_secrets
+        run: |
+          if [ -z "${{ secrets.EC2_HOST }}" ]; then
+            echo "::warning ::EC2_HOST secret is not configured. Skipping SSH deployment."
+            echo "configured=false" >> $GITHUB_OUTPUT
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Deploy to EC2 via SSH
+        if: steps.check_secrets.outputs.configured == 'true'
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -21,7 +33,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
-            # Navigate to the project directory (adjust path if different)
             cd ~/app || cd ~/Course_Builder || cd ~/mindcourse
             git pull origin main
             docker compose up -d --build
