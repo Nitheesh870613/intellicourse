@@ -1,0 +1,34 @@
+# Node dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js build output and cache
+.next
+out
+
+# Git and version control
+.git
+.gitignore
+
+# Environment files and secrets (never send to daemon or image)
+.env*
+!.env.example
+
+# Deployment and Docker configurations
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+Caddyfile
+deploy
+.github
+
+# Documentation and IDE
+README.md
+.vscode
+.idea
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
